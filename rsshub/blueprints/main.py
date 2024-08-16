@@ -343,3 +343,9 @@ def rss_filter():
     from rsshub.spiders.rssfilter.filter import ctx
     feed_url = request.args.get("feed")
     return render_template('main/atom.xml', **filter_content(ctx(feed_url)))
+
+@bp.route('/siemens/news/<string:local>')
+@cache.cached(timeout=3600)
+def siemens_news(local=''):
+    from rsshub.spiders.siemens.news import ctx
+    return render_template('main/atom.xml', **filter_content(ctx(local)))
