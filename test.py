@@ -1,3 +1,3 @@
-from rsshub.spiders.siemens.news import ctx
+from rsshub.spiders.fgw.xxgk import ctx
 
-print(ctx('global'))
+print(ctx('fzggwl'))

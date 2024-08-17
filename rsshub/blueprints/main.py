@@ -349,3 +349,10 @@ def rss_filter():
 def siemens_news(local=''):
     from rsshub.spiders.siemens.news import ctx
     return render_template('main/atom.xml', **filter_content(ctx(local)))
+
+@bp.route('/fgw/xxgk/<string:category>')
+@cache.cached(timeout=3600)
+def fgw_xxgk(category=''):
+    print("fgw")
+    from rsshub.spiders.fgw.xxgk import ctx
+    return render_template('main/atom.xml', **filter_content(ctx(category)))
