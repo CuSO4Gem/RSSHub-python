@@ -4,6 +4,8 @@ import arrow
 import re
 from rsshub.utils import DEFAULT_HEADERS
 
+MAX_ITEMS = 6
+
 domain = 'https://www.ndrc.gov.cn'
 categoryMap = {
     # 'all': '/xxgk/',
@@ -56,9 +58,13 @@ def getCategoryItems(category):
     rows = soup.find('ul', class_='u-list').find_all('li', recursive=False)
     items = []
 
+    itemCount = 0
     for row in rows:
         if 'empty' in row.get('class', []):
             continue
+        if itemCount >= MAX_ITEMS:
+            break
+        itemCount += 1
         items.append(parseRow(url, row))
     
     return items
