@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup    
 import requests
+import arrow
 from rsshub.utils import DEFAULT_HEADERS
 
 
@@ -10,6 +11,7 @@ def parseRow(devRow):
     href = aTagsWithHref[0].get('href')
     link = domain + href
     title = aTagsWithHref[0].find('b').text.strip()
+    pubData = devRow.find('p').text.strip()
 
     content = ''
     contentTbTags = devRow.find('div', class_='p clearfix newList').find_all('td')
@@ -22,6 +24,7 @@ def parseRow(devRow):
     item['title'] = title
     item['description'] = content
     item['link'] = link
+    item['pubDate'] = arrow.get(pubData, "YYYY年M月D日").isoformat()
     return item
 
 
